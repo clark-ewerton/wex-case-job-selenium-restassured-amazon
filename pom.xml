@@ -1,0 +1,280 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.clark</groupId>
+	<artifactId>wex-case-selenium-java-cucumber</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
+		<cucumber.report.json.location>${project.basedir}\json\</cucumber.report.json.location>
+		<generated.report.location>${project.build.directory}\cluecumber-report</generated.report.location>
+		<maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+		<maven-compiler-plugin.version>3.9.0</maven-compiler-plugin.version>
+		<maven.failsafe.plugin.version>3.0.0-M3</maven.failsafe.plugin.version>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<log4j.version>2.17.1</log4j.version>
+		<cucumber.version>7.2.3</cucumber.version>
+		<hamcrest.version>2.2</hamcrest.version>
+		<owner.version>1.0.12</owner.version>
+		<maven.compiler.version>3.3</maven.compiler.version>
+		<maven.surefire.version>2.22.1</maven.surefire.version>
+		<restassured.version>4.3.3</restassured.version>
+
+		<allure.version>2.17.2</allure.version>
+		<allure-maven.version>2.11.2</allure-maven.version>
+		<allure-environment-writer.version>1.0.0</allure-environment-writer.version>
+		<allure.cmd.download.url>
+			https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
+		</allure.cmd.download.url>
+
+		<aspectj.version>1.9.6</aspectj.version>
+
+		<generated.runner.directory>${project.build.directory}/parallel/runners</generated.runner.directory>
+		<generated.feature.directory>${project.build.directory}/parallel/features</generated.feature.directory>
+		<maven.build.helper.plugin.version>3.0.0</maven.build.helper.plugin.version>
+
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${restassured.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>1.2.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>1.2.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-picocontainer</artifactId>
+			<version>1.2.5</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>4.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aeonbits.owner</groupId>
+			<artifactId>owner</artifactId>
+			<version>${owner.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.trivago.rta</groupId>
+			<artifactId>cucable-plugin</artifactId>
+			<version>1.9.0</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<!-- https://mvnrepository.com/artifact/com.trivago.rta/cluecumber-report-plugin -->
+				<groupId>com.trivago.rta</groupId>
+				<artifactId>cluecumber-report-plugin</artifactId>
+				<version>1.10.2</version>
+				<executions>
+					<execution>
+						<id>report</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>reporting</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<sourceJsonReportDirectory>${cucumber.report.json.location}</sourceJsonReportDirectory>
+					<generatedHtmlReportDirectory>${generated.report.location}</generatedHtmlReportDirectory>
+
+					<customParameters>
+						<!-- Optional custom parameters that are shown on the start page if 
+							they have a value -->
+						<Custom_Parameter>Relatório de execução dos testes funcionais</Custom_Parameter>
+						<Custom_URL>http://automationpractice.com/index.php</Custom_URL>
+						<Empty_Parameter />
+					</customParameters>
+
+					<!-- Optional custom CSS for custom styling -->
+					<!--<customCss>custom\custom.css</customCss> -->
+
+					<!-- Optional skip property for the whole report generation -->
+					<!--<skip>true</skip> -->
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>Run parallel tests</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>integration-test</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<testFailureIgnore>true</testFailureIgnore>
+					<forkCount>${threads}</forkCount>
+					<reuseForks>false</reuseForks>
+					<disableXmlReport>true</disableXmlReport>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>${maven.build.helper.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>add-test-source</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${generated.runner.directory}</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.trivago.rta</groupId>
+				<artifactId>cucable-plugin</artifactId>
+				<version>1.9.0</version>
+				<executions>
+					<execution>
+						<id>generate-test-resources</id>
+						<phase>generate-test-resources</phase>
+						<goals>
+							<goal>parallel</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<sourceRunnerTemplateFile>src/test/java/runner/parallel/CucableJavaTemplate.java</sourceRunnerTemplateFile>
+					<sourceFeatures>src/test/resources/features/</sourceFeatures>
+					<generatedFeatureDirectory>${generated.feature.directory}</generatedFeatureDirectory>
+					<generatedRunnerDirectory>${generated.runner.directory}</generatedRunnerDirectory>
+					<parallelizationMode>features</parallelizationMode>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.version}</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											com.trivago.rta
+										</groupId>
+										<artifactId>
+											cucable-plugin
+										</artifactId>
+										<versionRange>
+											[1.9.0,)
+										</versionRange>
+										<goals>
+											<goal>parallel</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											build-helper-maven-plugin
+										</artifactId>
+										<versionRange>
+											[${maven.build.helper.plugin.version},)
+										</versionRange>
+										<goals>
+											<goal>add-test-source</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>
