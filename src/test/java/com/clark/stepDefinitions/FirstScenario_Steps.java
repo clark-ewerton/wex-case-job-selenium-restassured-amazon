@@ -27,7 +27,7 @@ public class FirstScenario_Steps extends AbstractPageObject {
 
 	@Then("^Sure At Least (\\d+)% Of Items Found are \"([^\"]*)\"$")
 	public void sure_At_Least_Of_Items_Found_are(int percentage, String product) throws Throwable {
-		amazon.shouldValidatePercentageIphoneFound(percentage, product);
+		amazon.shouldValidatePercentageIphoneFoundAreGreaterThan(percentage, product);
 	}
 
 }

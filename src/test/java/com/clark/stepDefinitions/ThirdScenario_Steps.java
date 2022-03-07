@@ -15,7 +15,8 @@ public class ThirdScenario_Steps {
 	}
 
 	@Then("^Make Sure All Found Products Are Cheaper Than The Cheapest \"([^\"]*)\"$")
-	public void make_Sure_All_Found_Products_Are_Cheaper_Than_The_Cheapest(String arg1) throws Throwable {
+	public void make_Sure_All_Found_Products_Are_Cheaper_Than_The_Cheapest(String product) throws Throwable {
+		amazon.shouldValidateThatAllFoundProductsAreCheaperThanCheapestIphone(product);
 	}
 
 }

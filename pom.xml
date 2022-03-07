@@ -6,13 +6,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
-		<cucumber.report.json.location>${project.basedir}\json\</cucumber.report.json.location>
-		<generated.report.location>${project.build.directory}\cluecumber-report</generated.report.location>
 		<maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
 		<maven-compiler-plugin.version>3.9.0</maven-compiler-plugin.version>
 		<maven.failsafe.plugin.version>3.0.0-M3</maven.failsafe.plugin.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<assertj.version>3.18.1</assertj.version>
 		<java.version>1.8</java.version>
 		<log4j.version>2.17.1</log4j.version>
 		<cucumber.version>7.2.3</cucumber.version>
@@ -31,13 +30,15 @@
 
 		<aspectj.version>1.9.6</aspectj.version>
 
-		<generated.runner.directory>${project.build.directory}/parallel/runners</generated.runner.directory>
-		<generated.feature.directory>${project.build.directory}/parallel/features</generated.feature.directory>
-		<maven.build.helper.plugin.version>3.0.0</maven.build.helper.plugin.version>
-
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${assertj.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>io.rest-assured</groupId>
@@ -103,109 +104,50 @@
 			<artifactId>cucable-plugin</artifactId>
 			<version>1.9.0</version>
 		</dependency>
+		
+			<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-junit5</artifactId>
+			<version>2.13.6</version>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-				<!-- https://mvnrepository.com/artifact/com.trivago.rta/cluecumber-report-plugin -->
-				<groupId>com.trivago.rta</groupId>
-				<artifactId>cluecumber-report-plugin</artifactId>
-				<version>1.10.2</version>
-				<executions>
-					<execution>
-						<id>report</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>reporting</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<sourceJsonReportDirectory>${cucumber.report.json.location}</sourceJsonReportDirectory>
-					<generatedHtmlReportDirectory>${generated.report.location}</generatedHtmlReportDirectory>
-
-					<customParameters>
-						<!-- Optional custom parameters that are shown on the start page if 
-							they have a value -->
-						<Custom_Parameter>Relatório de execução dos testes funcionais</Custom_Parameter>
-						<Custom_URL>http://automationpractice.com/index.php</Custom_URL>
-						<Empty_Parameter />
-					</customParameters>
-
-					<!-- Optional custom CSS for custom styling -->
-					<!--<customCss>custom\custom.css</customCss> -->
-
-					<!-- Optional skip property for the whole report generation -->
-					<!--<skip>true</skip> -->
-				</configuration>
-			</plugin>
-
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
 				<configuration>
-					<skipTests>true</skipTests>
+					<argLine>
+						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+					</argLine>
+					<includes>
+                        <include>**/**Runner*.java</include>
+                    </includes>
+					<skipTests>false</skipTests>
 				</configuration>
+
+				<dependencies>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjweaver</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+				</dependencies>
 			</plugin>
+
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>Run parallel tests</id>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>integration-test</goal>
-						</goals>
-					</execution>
-				</executions>
+				<groupId>io.qameta.allure</groupId>
+				<artifactId>allure-maven</artifactId>
+				<version>${allure-maven.version}</version>
 				<configuration>
-					<testFailureIgnore>true</testFailureIgnore>
-					<forkCount>${threads}</forkCount>
-					<reuseForks>false</reuseForks>
-					<disableXmlReport>true</disableXmlReport>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>${maven.build.helper.plugin.version}</version>
-				<executions>
-					<execution>
-						<id>add-test-source</id>
-						<phase>generate-test-sources</phase>
-						<goals>
-							<goal>add-test-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>${generated.runner.directory}</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>com.trivago.rta</groupId>
-				<artifactId>cucable-plugin</artifactId>
-				<version>1.9.0</version>
-				<executions>
-					<execution>
-						<id>generate-test-resources</id>
-						<phase>generate-test-resources</phase>
-						<goals>
-							<goal>parallel</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<sourceRunnerTemplateFile>src/test/java/runner/parallel/CucableJavaTemplate.java</sourceRunnerTemplateFile>
-					<sourceFeatures>src/test/resources/features/</sourceFeatures>
-					<generatedFeatureDirectory>${generated.feature.directory}</generatedFeatureDirectory>
-					<generatedRunnerDirectory>${generated.runner.directory}</generatedRunnerDirectory>
-					<parallelizationMode>features</parallelizationMode>
+					<reportVersion>${allure.version}</reportVersion>
+					<allureDownloadUrl>
+						${allure.cmd.download.url}/${allure.version}/allure-commandline-${allure.version}.zip
+					</allureDownloadUrl>
 				</configuration>
 			</plugin>
 
@@ -220,61 +162,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											com.trivago.rta
-										</groupId>
-										<artifactId>
-											cucable-plugin
-										</artifactId>
-										<versionRange>
-											[1.9.0,)
-										</versionRange>
-										<goals>
-											<goal>parallel</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.codehaus.mojo
-										</groupId>
-										<artifactId>
-											build-helper-maven-plugin
-										</artifactId>
-										<versionRange>
-											[${maven.build.helper.plugin.version},)
-										</versionRange>
-										<goals>
-											<goal>add-test-source</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+
 	</build>
 
 </project>
