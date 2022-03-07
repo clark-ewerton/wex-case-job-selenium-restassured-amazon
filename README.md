@@ -92,8 +92,6 @@ You will see the following items in this architecture:
    * [Generating the test report](#generating-the-test-report)
    * [Execution with Docker Selenium Distributed](#execution-with-docker-selenium-distributed)
 
-Do you have any other items to add to this test architecture? Please do a pull request or open an issue to discuss.
-
 ### Page Objects pattern
 I will not explain the Page Object pattern because you can find a lot of good explanations and examples on the internet. 
 Instead, I will explain what exactly about page objects I'm using in this project.
