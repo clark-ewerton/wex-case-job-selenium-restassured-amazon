@@ -83,7 +83,7 @@ You will see the following items in this architecture:
 * [Execution types](#execution-types)
 * [Configuration files](#configuration-files)
 * [Logging](#logging)
-* [Sequential execution](#sequential-execution)
+* [How to execute?](#how-to-execute?)
 
 Do you have any other items to add to this test architecture? Please do a pull request or open an issue to discuss.
 
@@ -140,7 +140,7 @@ All the log is done by the Log4J using the `@Log4j2` annotation.
 
 The `log4j2.properties` has two strategies: console and file. A file with all the log information will be automatically created on the user folder with `test_automation.log` filename. If you want to change it, update the `appender.file.fileName` property value.
 
-### Sequential execution
+### How to execute?
 If you want to execute your selenium web tests in a stardand way, all you have to do is to run the class 'CucumberRunnerTest' as 'JUnit Tests'. This class implements the calling to Cucumber Plugin and its 'Steps Classes'. Moreover, has the pre (setup) and post (teardown) conditions. 
 
 The 'Step Classes' itself only calls the methods of Page Object Classes. 
