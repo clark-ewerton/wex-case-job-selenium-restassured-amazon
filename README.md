@@ -84,6 +84,9 @@ You will see the following items in this architecture:
 * [Configuration files](#configuration-files)
 * [Logging](#logging)
 * [How to execute](#how-to-execute)
+   * [Screenshots](#screeshots)
+   * [Generating the test report](#generating-the-test-report)
+   * [Execution with Docker Selenium Distributed](#execution-with-docker-selenium-distributed)
 
 Do you have any other items to add to this test architecture? Please do a pull request or open an issue to discuss.
 
@@ -153,6 +156,16 @@ Another way to run it, its through Maven based on command: `mvn tests`
 #### Screenshots
 After the test's execution, if there's an error in any scenario, all the screenshots's images related to that one will be saved on "Screenshots" directory of the project. The login behind this is on `"Hooks" step class`.
 
+#### Generating the test report
+
+This project uses Allure Report to automatically generate the test report.
+There are some configuration to make it happen:
+* aspectj configuration on `pom.xml` file
+* `allure.properties` file on `src/test/resources`
+
+You can use the command line to generate it in two ways:
+* `mvn allure:serve`: will open the HTML report into the browser
+* `mvn allure:report`: will generate the HTML port at `target/site/allure-maven-plugin` folder
 
 #### Execution with Docker Selenium Distributed
 This project has the `docker-compose.yml` file to run the tests in a remote way using Docker Selenium.
