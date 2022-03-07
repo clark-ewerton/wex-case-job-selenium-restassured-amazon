@@ -177,7 +177,10 @@ Please not you need the following before run it in parallel:
 * Start the Grid running the following command as for example:
   * `docker-compose up -d
 
-#### specs
+#### src/main/java/endpoints
+All the classes inside this package has the methods to perform an especific task that can, after, be called by the Page Object Class.
+
+#### src/main/javaspecs
 Request and Response specifications used by the api tests
 The class `InitialStepsSpec` set the basePath, baseURI, and contentType for the custom specs.
 
