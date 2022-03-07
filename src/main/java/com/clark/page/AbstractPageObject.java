@@ -40,6 +40,8 @@ public class AbstractPageObject {
 
 	protected AbstractPageObject() {
 		DriverManager.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		DriverManager.getDriver().manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
+		DriverManager.getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
 	}
 
 	public WebElement procurarElemento(By elemento) {
