@@ -84,7 +84,7 @@ You will see the following items in this architecture:
 * [Configuration files](#configuration-files)
 * [Logging](#logging)
 * [How to execute](#how-to-execute)
-   * [Screenshots](#screeshots)
+   * [Screenshots](#screenshots)
    * [Generating the test report](#generating-the-test-report)
    * [Execution with Docker Selenium Distributed](#execution-with-docker-selenium-distributed)
 
