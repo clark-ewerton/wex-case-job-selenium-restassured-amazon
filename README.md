@@ -158,7 +158,7 @@ This project has the `docker-compose.yml` file to run the tests in a remote way 
 Please not you need the following before run it in parallel:
 * Docker installed
 * Start the Grid running the following command as for example:
-  * `docker-compose up
+  * `docker-compose up -d
 
 ### Configuration files
 This project uses a library called [Owner](http://owner.aeonbits.org/). You can find the class related to the property 
