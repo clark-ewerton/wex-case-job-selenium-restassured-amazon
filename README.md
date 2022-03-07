@@ -182,7 +182,7 @@ file reader in the following classes:
 * [ConfigurationManager](https://github.com/eliasnogueira/selenium-java-lean-test-achitecture/blob/master/src/main/java/com/eliasnogueira/config/ConfigurationManager.java)
 
 There are 3 properties (configuration) files located on `src/test/java/resources/`:
-* `general.properties`: general configuration as the target execution, base url, timeout, and faker locale
+* `general.properties`: general configuration as the target execution, base url, timeout, and faker locale, api url, basePath and token
 * `grid.properties`: url and port for the Selenium grid usage
 * `local.properties`:  browser to use in the local execution
 
