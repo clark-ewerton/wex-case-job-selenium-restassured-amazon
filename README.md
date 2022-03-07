@@ -81,7 +81,6 @@ You will see the following items in this architecture:
 * [Configuration files](#configuration-files)
 * [Logging](#logging)
 * [Sequential execution](#sequential-execution)
-* [Parallel execution](#parallel-execution)
 
 Do you have any other items to add to this test architecture? Please do a pull request or open an issue to discuss.
 
