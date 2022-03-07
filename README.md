@@ -63,8 +63,10 @@ This project using the following languages and frameworks:
 * [Java 8](https://openjdk.java.net/projects/jdk8/) as the programming language
 * [JUnit 4](https://junit.org/junit4/) as the UnitTest framework to support the test creation
 * [Selenium WebDriver](https://www.selenium.dev/) as the web browser automation framework
+* [AssertJ](https://joel-costigliola.github.io/assertj/) as the fluent Assert library
 * [Cucumber](https://cucumber.io/) as the tool that supports Behaviour-Driven Development(BDD) making out tests more describable
 * [Allure Report](https://docs.qameta.io/allure/) as the testing report strategy
+* [Log4J2](https://logging.apache.org/log4j/2.x/) as the logging management strategy
 * [WebDriverManager](https://github.com/bonigarcia/webdrivermanager) as the Selenium binaries management
 * [Owner](http://owner.aeonbits.org/) to minimize the code to handle the properties file
 * [Maven](https://maven.apache.org/) as the Java build tool
