@@ -83,7 +83,7 @@ You will see the following items in this architecture:
 * [Execution types](#execution-types)
 * [Configuration files](#configuration-files)
 * [Logging](#logging)
-* [How to execute?](#how-to-execute?)
+* [How to execute](#how-to-execute)
 
 Do you have any other items to add to this test architecture? Please do a pull request or open an issue to discuss.
 
