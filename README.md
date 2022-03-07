@@ -64,6 +64,7 @@ This project using the following languages and frameworks:
 * [Java 8](https://openjdk.java.net/projects/jdk8/) as the programming language
 * [JUnit 4](https://junit.org/junit4/) as the UnitTest framework to support the test creation
 * [Selenium WebDriver](https://www.selenium.dev/) as the web browser automation framework
+* [RestAssured](http://rest-assured.io/) library to test REST APIs
 * [AssertJ](https://joel-costigliola.github.io/assertj/) as the fluent Assert library
 * [Cucumber](https://cucumber.io/) as the tool that supports Behaviour-Driven Development(BDD) making out tests more describable
 * [Allure Report](https://docs.qameta.io/allure/) as the testing report strategy
@@ -73,6 +74,9 @@ This project using the following languages and frameworks:
 * [Maven](https://maven.apache.org/) as the Java build tool
 * [Eclipse](https://www.eclipse.org/) as the IDE
 
+## Patterns applied
+* Page Object
+* Request and Response Specification
 
 ## Test architecture
 
@@ -174,6 +178,10 @@ Please not you need the following before run it in parallel:
 * Docker installed
 * Start the Grid running the following command as for example:
   * `docker-compose up -d
+
+#### specs
+Request and Response specifications used by the api tests
+The class `InitialStepsSpec` set the basePath, baseURI, and contentType for the custom specs.
 
 ### Configuration files
 This project uses a library called [Owner](http://owner.aeonbits.org/). You can find the class related to the property 
