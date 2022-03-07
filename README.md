@@ -54,6 +54,7 @@ wex-case-selenium-java-cucumber/
 ├─ .gitignore
 ├─ pom.xml
 ├─ README.md
+├─ docker-compose.yml
 ```
 
 ## Languages and Frameworks
